@@ -1,41 +1,72 @@
-# Prerequisites
-*.d
+#include <iostream>
+#include <string>
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+const int StudentSize = 20;
 
-# Precompiled Headers
-*.gch
-*.pch
+struct StudentData {
+    string StudentFirstName;
+    string StudentLastName;
+    int StudentTestScore;
+    char StudentGrade;
+};
 
-# Linker files
-*.ilk
+void readData(StudentData Student[]) {
+    for (int i = 0; i < StudentSize; i++) {
+        cout << "Enter First Student's Name: ";
+        cin >> Student[i].StudentFirstName;
+        cout << "Enter Last Student's Name: ";
+        cin >> Student[1].StudentLastName;
+        cout << "Enter Student's Test Score: ";
+        cin >> Student[i].StudentTestScore;
+        cout << endl;
+    }
+}
 
-# Debugger Files
-*.pdb
+void assignGrade(StudentData Student[]) {
+    for (int i = 0; i < StudentSize; i++) {
+        if (Student[i].StudentTestScore >= 90)
+        Student[i].StudentGrade = 'A';
+        else if (Student[i].StudentTestScore >= 80)
+        Student[i].StudentGrade = 'B';
+        else if (Student[i].StudentTestScore >= 70)
+        Student[i].StudentGrade = 'C';
+        else if (Student[i].StudentTestScore >= 60)
+        Student[i].StudentGrade = 'D';
+        else 
+        Student[i].StudentGrade = 'E';
+    }
+}
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+int HighestTestScore(StudentData Student[]) {
+    int Highest = Student[0].StudentTestScore;
+    for (int i = 0; i < StudentSize; i++) {
+        if (Student[i].StudentTestScore > Highest)
+        Highest = Student[i].StudentTestScore;
+    }
+    return Highest;
+}
 
-# Fortran module files
-*.mod
-*.smod
+void Result(StudentData Student[], int HighestTestScore) {
+    cout << "\nStudent With Highest Test Score ("
+    << HighestTestScore << "):\n";
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+    for (int i = 0; i < StudentSize; i++) {
+        if (Student[i].StudentTestScore == HighestTestScore) {
+            cout << Student[i].StudentLastName << ", ";
+            cout << Student[i].StudentFirstName << " ";
+            cout << Student[i].StudentTestScore << " ";
+            cout << Student[i].StudentGrade << endl;
+        }
+    }
+}
 
-# Executables
-*.exe
-*.out
-*.app
+int main () {
+    StudentData Student[StudentSize];
+    readData(Student);
+    assignGrade(Student);
+    int Highest = HighestTestScore(Student);
+    Result(Student, Highest);
 
-# debug information files
-*.dwo
+    return 0;
+}
